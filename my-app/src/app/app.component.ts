@@ -51,7 +51,7 @@ export class AppComponent {
     );
   }
   add() {
-    this.http.get("/api/facts/add").subscribe(
+    this.http.get("/api/facts/add,").subscribe(
       data => {
         this.posts = data;
       }

@@ -116,6 +116,11 @@
     width: 168px;
   }
 
+  .card.card-medium {
+    height: 16px;
+    width: fit-content;
+  }
+
   .card-container .card:not(.highlight-card) {
     cursor: pointer;
   }
@@ -268,7 +273,6 @@
   <!-- Resources -->
   <h2>Facts</h2>
   <p>What actions do you want to do?</p>
-
   <div class="card-container">
 
   </div>
@@ -286,7 +290,8 @@
     </button>
 
 
-    <button class="card card-small" (click)="topic()" tabindex="0">
+    <button class="card card-medium" (click)="topic()" tabindex="0">
+      <input type='text' id='fact' />
       <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
         <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
       </svg>
@@ -301,12 +306,6 @@
       <span>Display All Topics</span>
     </button>
 
-    <button class="card card-small" (click)="add()" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-      </svg>
-      <span>Add Fact</span>
-    </button>
 
     <button class="card card-small" (click)="delete()" tabindex="0">
       <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -315,6 +314,16 @@
       <span>Delete Fact</span>
     </button>
 
+    <span> Add Fact: </span>
+    <input type='text' id='fact' />
+    <span> Add Topic: </span>
+    <input type='text' id='topic' />
+    <button class="card card-small" (click)="add()" tabindex="0">
+
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+      </svg>
+    </button>
 
   </div>
 
@@ -323,9 +332,10 @@
     <pre *ngSwitchDefault></pre>
     <pre *ngSwitchCase="'getRandom'">
       {{posts.fact}}
-   </pre>
+    </pre>
     <pre *ngSwitchCase="'topic()'">ng add @angular/pwa</pre>
-    <pre *ngSwitchCase="'add()'">ng add _____</pre>
+    <pre *ngSwitchCase="'add()'">Add Fact</pre>
+
     <pre *ngSwitchCase="'delete()'">ng test</pre>
     <pre *ngSwitchCase="'delete()'">ng test</pre>
     <pre *ngSwitchCase="'delete()'">ng test</pre>
