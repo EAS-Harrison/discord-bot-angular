@@ -14,6 +14,7 @@ export class AppComponent {
   addResult: any
   deleteResult: any;
   topicSearchValue: any
+  factSearchValue: any
   title = 'Fact Table';
 
 
@@ -29,9 +30,10 @@ export class AppComponent {
     );
   }
   topic() {
-    this.http.get("/api/facts/topic?topic=", { topic: this.topicSearchValue }).subscribe(
+    this.http.get("/api/facts/topic?topic=" + this.topicSearchValue).subscribe(
       data => {
         this.posts = data;
+        this.topicSearchValue = ""
       }
     );
   }
