@@ -107,6 +107,7 @@
     line-height: 24px;
   }
 
+
   .card-container .card:not(:last-child) {
     margin-right: 0;
   }
@@ -119,6 +120,11 @@
   .card.card-medium {
     height: 16px;
     width: fit-content;
+  }
+
+  .card.card-submit {
+    height: 10px;
+    width: 100px;
   }
 
   .card-container .card:not(.highlight-card) {
@@ -148,20 +154,6 @@
     margin-left: 60px;
   }
 
-  svg#rocket {
-    width: 80px;
-    position: absolute;
-    left: -10px;
-    top: -24px;
-  }
-
-  svg#rocket-smoke {
-    height: calc(100vh - 95px);
-    position: absolute;
-    top: 10px;
-    right: 180px;
-    z-index: -10;
-  }
 
   a,
   a:visited,
@@ -215,17 +207,27 @@
     box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   }
 
-  footer {
-    margin-top: 8px;
+  fieldset {
+    all: unset;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    background-color: #fafafa;
+    height: 40px;
+    width: fit-content;
+    margin: 0 8px 16px;
+    padding-top: 0.35em;
+    padding-bottom: 0.35em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
     display: flex;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
-    line-height: 20px;
+    transition: all 0.2s ease-in-out;
+    line-height: 24px;
   }
 
-  footer a {
-    display: flex;
-    align-items: center;
-  }
+
 
   /* Responsive Styles */
   @media screen and (max-width: 767px) {
@@ -290,13 +292,11 @@
     </button>
 
 
-    <button class="card card-medium" (click)="topic()" tabindex="0">
-      <input type='text' id='fact' />
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-      </svg>
-      <span>Get Fact by Topic</span>
-    </button>
+
+    <fieldset>
+      <label>Search By Topic:<input [(ngModel)]="topicSearchValue" type='text' /></label>
+    </fieldset>
+    <span class="card card-submit" (click)="topic()" (click)="selection.value = 'topic'"> Search</span>
 
 
     <button class="card card-small" (click)="getTopics()" (click)="selection.value = 'getTopics'" tabindex="0">
@@ -305,58 +305,30 @@
       </svg>
       <span>Display All Topics</span>
     </button>
+    <fieldset>
+      <label>Add Fact:<input [(ngModel)]="factValue" type='text' /></label>
+      <label>Add Topic:<input [(ngModel)]="topicValue" type='text' /></label>
+    </fieldset>
+    <span class="card card-submit" (click)="add()" (click)="selection.value = 'add'"> Submit Fact</span>
 
-
-    <button class="card card-small" (click)="delete()" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-      </svg>
-      <span>Delete Fact</span>
-    </button>
-
-    <span> Add Fact: </span>
-    <input type='text' id='fact' />
-    <span> Add Topic: </span>
-    <input type='text' id='topic' />
-    <button class="card card-small" (click)="add()" tabindex="0">
-
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-      </svg>
-    </button>
-
+    <fieldset>
+      <label>Delete Fact:<input [(ngModel)]="factDeleteValue" type='text' /></label>
+      <label>Fact Topic:<input [(ngModel)]="topicDeleteValue" type='text' /></label>
+    </fieldset>
+    <span class="card card-small" (click)="delete()" (click)="selection.value = 'delete'"> Delete Fact</span>
   </div>
 
   <!-- Terminal -->
   <div class="terminal" [ngSwitch]="selection.value">
     <pre *ngSwitchDefault></pre>
-    <pre *ngSwitchCase="'getRandom'">
-      {{posts.fact}}
-    </pre>
+    <pre *ngSwitchCase="'getRandom'"> {{posts.fact}} </pre>
     <pre *ngSwitchCase="'topic()'">ng add @angular/pwa</pre>
-    <pre *ngSwitchCase="'add()'">Add Fact</pre>
-
-    <pre *ngSwitchCase="'delete()'">ng test</pre>
+    <pre *ngSwitchCase="'add'">{{addResult}}</pre>
+    <pre *ngSwitchCase="'delete'">{{deleteResult}}</pre>
     <pre *ngSwitchCase="'delete()'">ng test</pre>
     <pre *ngSwitchCase="'delete()'">ng test</pre>
     <pre *ngSwitchCase="'getTopics'">{{posts.result}}</pre>
 
   </div>
 
-  <!-- Links -->
-  <div class="card-container">
-  </div>
-
-
-
-</div>
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>

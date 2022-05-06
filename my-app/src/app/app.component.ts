@@ -7,6 +7,13 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  topicValue: any;
+  factValue: any;
+  topicDeleteValue: any;
+  factDeleteValue: any;
+  addResult: any
+  deleteResult: any;
+  topicSearchValue: any
   title = 'Fact Table';
 
 
@@ -22,7 +29,7 @@ export class AppComponent {
     );
   }
   topic() {
-    this.http.get("/api/facts/topic?topic=").subscribe(
+    this.http.get("/api/facts/topic?topic=", { topic: this.topicSearchValue }).subscribe(
       data => {
         this.posts = data;
       }
@@ -44,16 +51,20 @@ export class AppComponent {
     );
   }
   delete() {
-    this.http.get("/api/facts/delete").subscribe(
+    this.http.post("/api/facts/delete", { fact: this.factDeleteValue, topic: this.topicDeleteValue }).subscribe(
       data => {
-        this.posts = data;
+        this.deleteResult = "Fact Removed Successfully"
+        this.factDeleteValue = ""
+        this.topicDeleteValue = ""
       }
     );
   }
   add() {
-    this.http.get("/api/facts/add,").subscribe(
+    this.http.post("/api/facts/add", { fact: this.factValue, topic: this.topicValue }).subscribe(
       data => {
-        this.posts = data;
+        this.addResult = "Fact added successfully"
+        this.factValue = ""
+        this.topicValue = ""
       }
     );
   }
